@@ -1,8 +1,23 @@
-// create a tcp modbus client
-const { dialog } = require('electron').remote
-// console.log(dialog)
+const Modbus = require('jsmodbus')
+const SerialPort = require('serialport')
+
+const options = {
+    baudRate: 115200
+}
+const socket = new SerialPort("/dev/ttyUSB0", options)
+const client = new Modbus.client.RTU(socket, 1)
+
 let state = 0;
 let cho = 0;
+let registerArr;
+let socketOpen = false;
+
+let inputArr = ['displaySetVoltage', 'displaySetCurrent', 'displayOVP', 'displayOCP', 'enter', 'switch'];
+addEventListeners = (elementIdArr) => {
+    for (let i = 0; i < elementIdArr.length; i++) {
+
+    }
+}
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('switch').addEventListener('click', () => {
         let regs = client.readHoldingRegisters(0, 120).then(function (obj) {
@@ -44,62 +59,42 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-const Modbus = require('jsmodbus')
-const SerialPort = require('serialport')
-
-const options = {
-    baudRate: 115200
-}
-const socket = new SerialPort("/dev/ttyUSB0", options)
-const client = new Modbus.client.RTU(socket, 1)
-// let myObj;
-// socket.on('open', function () {
-//     setInterval(getRegisters, 1000);
-//     function getRegisters() {
-//         regs = client.readHoldingRegisters(0, 120).then(function (obj) {
-//             myObj = obj;
-//             sV.textContent = obj.response._body._valuesAsArray[10] / 100;
-//             sC.textContent = obj.response._body._valuesAsArray[11] / 1000;
-//             sIVoltage.textContent = obj.response._body._valuesAsArray[14] / 100;
-//             sP.textContent = obj.response._body._valuesAsArray[13] / 100;
-//         })
-//     }
-// });
-var registerArr;
-var registerUpdated;
-var socketOpen = false;
 socket.on('open', function () {
     socketOpen = true;
 });
-setInterval(updateRegisters, 2000);
+setInterval(updateRegisters, 1000);
 setInterval(showData, 1000);
 function showData() {
     displayVoltage.textContent = getDisplayVoltage() + "V";
     displayCurrent.textContent = getDisplayCurrent() + "A";
     displayPower.textContent = getDisplayPower() + "W";
     cvcc.textContent = (getConstantVoltageConstantCurrentStatus() == 0) ? "CV" : "CC";
-    if (state == 0) {
-        displaySetVoltage.value = getSetVoltage() + "V";
-        displaySetCurrent.value = getSetCurrent() + "A";
-        displayOVP.value = getVoltageProtection() + "V";
-        displayOCP.value = getCurrentProtection() + "A";
-    }
+    displayVoltageCurrent();
     displayIPVoltage.textContent = getInputVoltage() + "V";
     batStat.textContent = (getBatteryMode() == 0) ? "BAT OFF" : "BAT ON";
     ovpocp.textContent = (getOverCurrentVoltageProtectionStatus() == 1) ? "OVP" : "OCP";
-    if (cho == 0) {
-        energyMeter.textContent = getEnergymAh() + "mAh";
-    }
-    else if (cho == 1) {
-        energyMeter.textContent = getEnergyWh() + "Wh";
-    }
-    else if (cho == 2) {
-        energyMeter.textContent = getInternalTemperature_c() + "Ci";
-    }
-    else if (cho = 3) {
-        energyMeter.textContent = getExternalTemperature_c() + "Cx";
-    }
 
+
+    function displayVoltageCurrent() {
+        if (state == 0) {
+            displaySetVoltage.value = getSetVoltage() + "V"
+            displaySetCurrent.value = getSetCurrent() + "A"
+            displayOVP.value = getVoltageProtection() + "V"
+            displayOCP.value = getCurrentProtection() + "A"
+        }
+        if (cho == 0) {
+            energyMeter.textContent = getEnergymAh() + "mAh"
+        }
+        else if (cho == 1) {
+            energyMeter.textContent = getEnergyWh() + "Wh"
+        }
+        else if (cho == 2) {
+            energyMeter.textContent = getInternalTemperature_c() + "Ci"
+        }
+        else if (cho = 3) {
+            energyMeter.textContent = getExternalTemperature_c() + "Cx"
+        }
+    }
 }
 function updateRegisters() {
     return client.readHoldingRegisters(0, 120).then((obj) => {
@@ -108,20 +103,16 @@ function updateRegisters() {
         return Promise.resolve(registerArr);
     });
 }
-function writeRegister(register, value) {
+writeRegister = (register, value) => {
     return client.writeSingleRegister(register, value);
 }
 getDisplayVoltage = () => {
-    //console.log(readRegister(8) / 100);
-    //console.log(registerArr[10]);
     return (registerArr[10] === 0) ? 0 : registerArr[10] / 100;
 }
 getSetVoltage = () => {
     return (registerArr[8] === 0) ? 0 : registerArr[8] / 100;
 }
 getInputVoltage = () => {
-    // console.log("inside showIV");
-    // console.log(readRegister(14));
     return (registerArr[14] == 0) ? 0 : registerArr[14] / 100;
 }
 getDisplayCurrent = () => {
