@@ -1,0 +1,120 @@
+body {
+    background-color: black;
+    color: blanchedalmond;
+    font-size: 8vh;
+    font-family: 'Roboto',
+        sans-serif;
+
+}
+
+.aesthetic {
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+input {
+    background-color: black;
+    color: blanchedalmond;
+    font-size: 8vh;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+}
+
+input:focus {
+    outline-width: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1fr;
+    grid-template-rows: 1.1fr 1.2fr 1.2fr 0.5fr;
+    gap: 1px 0px;
+    grid-template-areas: "displayVoltage displayVoltage ipVol displayIPVoltage enter""displayCurrent displayCurrent showVA showVA enter""displayPower displayPower showVA showVA switch""cvcc ovpocp batStat energyMeter switch";
+}
+
+.batStat {
+    grid-area: batStat;
+}
+
+.ovpocp {
+    grid-area: ovpocp;
+}
+
+.cvcc {
+    grid-area: cvcc;
+}
+
+.energyMeter {
+    grid-area: energyMeter;
+}
+
+.displayVoltage {
+    grid-area: displayVoltage;
+}
+
+.displayCurrent {
+    grid-area: displayCurrent;
+}
+
+.displayPower {
+    grid-area: displayPower;
+}
+
+.ipVol {
+    grid-area: ipVol;
+}
+
+.displayIPVoltage {
+    grid-area: displayIPVoltage;
+}
+
+.showVA {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 1px 1px;
+    grid-template-areas: "vSet displaySetVoltage""iSet displaySetCurrent""ovp displayOVP""ocp displayOCP";
+    grid-area: showVA;
+}
+
+.vSet {
+    grid-area: vSet;
+}
+
+.iSet {
+    grid-area: iSet;
+}
+
+.ovp {
+    grid-area: ovp;
+}
+
+.ocp {
+    grid-area: ocp;
+}
+
+.displaySetVoltage {
+    grid-area: displaySetVoltage;
+}
+
+.displaySetCurrent {
+    grid-area: displaySetCurrent;
+}
+
+.displayOVP {
+    grid-area: displayOVP;
+}
+
+.displayOCP {
+    grid-area: displayOCP;
+}
+
+.enter {
+    grid-area: enter;
+}
+
+.switch {
+    grid-area: switch;
+}
