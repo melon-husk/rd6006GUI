@@ -9,14 +9,19 @@ body {
 
 .aesthetic {
     border: 2px solid white;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px;
+    text-align: center;
+}
+
+.aesthetic:hover {
+    cursor: pointer;
 }
 
 input {
     background-color: black;
     color: blanchedalmond;
-    font-size: 8vh;
+    font-size: 6vh;
     width: 100%;
     box-shadow: none;
     border: none;
@@ -36,38 +41,53 @@ input:focus {
 
 .batStat {
     grid-area: batStat;
+    color: green;
 }
 
 .ovpocp {
     grid-area: ovpocp;
+    background-color: blue;
+    color: white;
 }
 
 .cvcc {
     grid-area: cvcc;
+    background-color: blue;
+    color: white;
 }
 
 .energyMeter {
     grid-area: energyMeter;
+    color: green;
 }
 
 .displayVoltage {
     grid-area: displayVoltage;
+    color: green;
+    font-size: 16vh;
 }
 
 .displayCurrent {
     grid-area: displayCurrent;
+    color: teal;
+    font-size: 16vh;
 }
 
 .displayPower {
     grid-area: displayPower;
+    color: purple;
+    font-size: 16vh;
 }
 
 .ipVol {
     grid-area: ipVol;
+    color: purple;
+    border-color: purple;
 }
 
 .displayIPVoltage {
     grid-area: displayIPVoltage;
+    color: purple;
 }
 
 .showVA {
@@ -81,40 +101,70 @@ input:focus {
 
 .vSet {
     grid-area: vSet;
+    color: yellow;
+    border-color: yellow;
 }
 
 .iSet {
     grid-area: iSet;
+    color: yellow;
+    border-color: yellow;
 }
 
 .ovp {
     grid-area: ovp;
+    color: teal;
+    border-color: teal;
 }
 
 .ocp {
     grid-area: ocp;
+    color: teal;
+    border-color: teal;
 }
 
 .displaySetVoltage {
     grid-area: displaySetVoltage;
+    color: yellow;
 }
 
 .displaySetCurrent {
     grid-area: displaySetCurrent;
+    color: yellow;
 }
 
 .displayOVP {
     grid-area: displayOVP;
+    color: teal;
 }
 
 .displayOCP {
     grid-area: displayOCP;
+    color: teal;
 }
 
 .enter {
     grid-area: enter;
+    background-color: rgb(93, 125, 93);
+}
+
+.enter:hover {
+    background-color: rgb(49, 125, 49);
+}
+
+.enter:onClick {
+    background-color: green;
 }
 
 .switch {
     grid-area: switch;
+    background-color: rgb(93, 125, 93);
+}
+
+.switch:hover {
+    background-color: rgb(49, 125, 49);
+}
+
+.switch:onClick {
+    background-color: green;
 }

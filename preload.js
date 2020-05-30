@@ -13,12 +13,17 @@ let registerArr;
 let socketOpen = false;
 
 let inputArr = ['displaySetVoltage', 'displaySetCurrent', 'displayOVP', 'displayOCP', 'enter', 'switch'];
-addEventListeners = (elementIdArr) => {
-    for (let i = 0; i < elementIdArr.length; i++) {
 
-    }
-}
 window.addEventListener('DOMContentLoaded', () => {
+    // addEventListeners = (elementIdArr) => {
+    //     for (let i = 0; i < elementIdArr.length; i++) {
+    //         document.getElementById(elementIdArr[i]).addEventListener('click', () => {
+    //             if (id == 'displaySetVoltage') {
+
+    //             }
+    //         })
+    //     }
+    // }
     document.getElementById('switch').addEventListener('click', () => {
         let regs = client.readHoldingRegisters(0, 120).then(function (obj) {
             if (obj.response._body._valuesAsArray[18] == 0) {
@@ -62,19 +67,18 @@ window.addEventListener('DOMContentLoaded', () => {
 socket.on('open', function () {
     socketOpen = true;
 });
-setInterval(updateRegisters, 1000);
-setInterval(showData, 1000);
+
+setInterval(updateRegisters, 700);
+setInterval(showData, 700);
 function showData() {
     displayVoltage.textContent = getDisplayVoltage() + "V";
     displayCurrent.textContent = getDisplayCurrent() + "A";
     displayPower.textContent = getDisplayPower() + "W";
     cvcc.textContent = (getConstantVoltageConstantCurrentStatus() == 0) ? "CV" : "CC";
-    displayVoltageCurrent();
     displayIPVoltage.textContent = getInputVoltage() + "V";
     batStat.textContent = (getBatteryMode() == 0) ? "BAT OFF" : "BAT ON";
     ovpocp.textContent = (getOverCurrentVoltageProtectionStatus() == 1) ? "OVP" : "OCP";
-
-
+    displayVoltageCurrent();
     function displayVoltageCurrent() {
         if (state == 0) {
             displaySetVoltage.value = getSetVoltage() + "V"
