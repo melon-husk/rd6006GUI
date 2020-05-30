@@ -61,9 +61,8 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    setInterval(updateRegisters, 700);
-
-    setInterval(showData, 700);
+    setInterval(updateRegisters, 500);
+    setInterval(showData, 500);
     document.getElementById('switch').addEventListener('click', () => {
         let regs = client.readHoldingRegisters(0, 120).then(function (obj) {
             if (obj.response._body._valuesAsArray[18] == 0) {
@@ -113,7 +112,7 @@ socket.on('open', function () {
 function showData() {
     displayVoltage.textContent = getDisplayVoltage() + "V";
     // data.push({ x: data.length, y: getDisplayVoltage() });
-    addData(chart, x++, getDisplayVoltage());
+    addData(chart, x++, getDisplayCurrent());
     displayCurrent.textContent = getDisplayCurrent() + "A";
     displayPower.textContent = getDisplayPower() + "W";
     cvcc.textContent = (getConstantVoltageConstantCurrentStatus() == 0) ? "CV" : "CC";
