@@ -2,9 +2,7 @@ body {
     background-color: black;
     color: blanchedalmond;
     font-size: 8vh;
-    font-family: 'Roboto',
-        sans-serif;
-
+    font-family: "Roboto", sans-serif;
 }
 
 .aesthetic {
@@ -152,7 +150,7 @@ input:focus {
     background-color: rgb(49, 125, 49);
 }
 
-.enter:onClick {
+.enter:onclick {
     background-color: green;
 }
 
@@ -165,6 +163,6 @@ input:focus {
     background-color: rgb(49, 125, 49);
 }
 
-.switch:onClick {
+.switch:onclick {
     background-color: green;
 }
